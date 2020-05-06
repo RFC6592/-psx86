@@ -1,0 +1,3 @@
+﻿  main.c
+c:\users\ezzas\onedrive\bureau\projet_c_asm\projet_c_asm\main.c(116): warning C4013: 'system' non défini(e) ; extern retournant int pris par défaut
+  projet_c_asm.vcxproj -> C:\Users\ezzas\OneDrive\Bureau\projet_c_asm\Debug\projet_c_asm.exe
