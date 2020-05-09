@@ -29,7 +29,7 @@ extern double *ChangeSigne(double *);
 extern int LoiOhm(int r, int i);
 extern double PerimetreRectangle(double, double);
 extern int TesterTriangleRect(int, int, int);
-
+extern void ConversionFranc2Euro(double *pV);
 
 void main()
 {
@@ -95,6 +95,17 @@ void main()
 	int coteB = 6;
 	int coteC = 10;
 	printf("\x1b[32m[+]\x1b[0m int TesterTriangleRect(int a, int b, int c) : Triangle Rectangle ? (1 pour Oui/0 pour Non) = \x1B[7m\x1b[33m%d\x1b[0m\n", TesterTriangleRect(coteA, coteB, coteC));
+
+	// 12. void ConversionFranc2Euro(double *pV);
+	double moneyEuro[20];
+	ConversionFranc2Euro(&moneyEuro[0]);
+
+	printf("\n\x1b[32m[+]\x1b[0m\x1b[7m\x1b[33m TABLE DE CONVERSION \x1b[33m\x1b[0m\n");
+	printf("\x1b[31m\x1B[7mFRANCS\t\t EUROS\x1b[0m\n");
+	for (int i = 1; i <= 20; ++i)
+	{
+		printf("%d \t\t %.3lf \n", i*5, moneyEuro[i-1]);
+	}
 }
 
 

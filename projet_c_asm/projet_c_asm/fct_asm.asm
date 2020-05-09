@@ -3,6 +3,13 @@
 
 	dtmp DQ  0.0
 	dtmpPerimetre DQ 2.0
+	dtmpMax DQ 5.0
+	dtmpMin DQ 100.0
+
+	
+	compteur DD 0
+	euro DQ 0.125
+	dtmpFive DQ 5.0
 .CODE 
 
 
@@ -399,5 +406,46 @@ TesterTriangleRect PROC
 		ret
 
 TesterTriangleRect ENDP
+
+
+; @brief Fonction qui se charge de de convertir des francs belge en euros allant de 5 à 100 francs par pas de +5
+; @prototype Prototype en C : void ConversionFranc2Euro(double *pV);
+; @param pV = un pointeur sur la valeur en franc belge
+
+ConversionFranc2Euro PROC
+	vecteur EQU <DWORD PTR [EBP + 8]> ; Contient l'adresse
+
+	push ebp
+	mov ebp, esp
+
+	;  ======================= DECLARATION DES VARIABLES =======================
+	mov eax, vecteur ; eax contient l'adresse du vecteur
+	mov ecx, compteur ; ecx = 0
+	movsd xmm1, dtmpFive ; xmm1 = 5
+
+	;  ======================= TRAITEMENT =======================
+
+	debutwhile:
+		cmp ecx, 20
+		jl blocwhile
+		jnl finwhile
+	blocwhile:
+		
+		movsd xmm0, euro ; xmm0 = 0.125 sachant que 5 francs = 0.125 euros
+		mulsd xmm0, xmm1 ; xmm0 = 0.125 * 5.0 etc
+		divsd xmm0, dtmpFive ; xmm0 = 0.125 * 5.0 / 5.0 (regle de 3)
+
+		movsd QWORD PTR [eax + ecx * 8], xmm0
+		add ecx, 1
+		addsd xmm1, dtmpFive
+
+		jmp debutwhile
+
+	finwhile:
+		pop ebp
+		ret
+
+ConversionFranc2Euro ENDP
+
 
 END
