@@ -10,6 +10,8 @@
 	compteur DD 0
 	euro DQ 0.125
 	dtmpFive DQ 5.0
+
+	fdiviseur DD 7.0
 .CODE 
 
 
@@ -408,9 +410,9 @@ TesterTriangleRect PROC
 TesterTriangleRect ENDP
 
 
-; @brief Fonction qui se charge de de convertir des francs belge en euros allant de 5 à 100 francs par pas de +5
+; @brief Fonction qui se charge de convertir des francs belge en euros allant de 5 à 100 francs par pas de +5
 ; @prototype Prototype en C : void ConversionFranc2Euro(double *pV);
-; @param pV = un pointeur sur la valeur en franc belge
+; @param pV = vecteur de double
 
 ConversionFranc2Euro PROC
 	vecteur EQU <DWORD PTR [EBP + 8]> ; Contient l'adresse
@@ -447,5 +449,49 @@ ConversionFranc2Euro PROC
 
 ConversionFranc2Euro ENDP
 
+
+
+
+; @brief Fonction qui se charge de retourner la moyenne arithmetique des valeurs d'un vecteur du type float
+; @prototype Prototype en C : float Moyenne(float *pV, int taille);
+; @param pV = vecteur de type float
+; @param taille = taille du vecteur
+; @Return retourne la moyenne arithmetique
+
+Moyenne PROC
+	vecteur EQU <DWORD PTR [EBP + 8]>
+	tailleV EQU <DWORD PTR [EBP + 12]>
+	ftmp EQU <DWORD PTR [EBP - 8]>
+
+	push ebp
+	mov ebp, esp
+	sub esp, 4
+
+	;  ======================= DECLARATION DES VARIABLES =======================
+	mov esi, vecteur
+	mov ecx, compteur
+	movsd xmm0, dtmp
+	;  ======================= TRAITEMENT =======================
+	debutwhile:
+		cmp ecx, tailleV
+		jl blocwhile
+		jnl finwhile
+
+	blocwhile:
+		addss xmm0, DWORD PTR [esi + ecx * 4]
+		add ecx, 1 ; compteur++
+		jmp debutwhile
+
+	finwhile:
+		divss xmm0, fdiviseur ; xmm0 = 112.0 / 7.0
+		movss ftmp, xmm0 ; ftmp = 16.0
+
+		fld ftmp ; ; Transmission du contenu de la variable locale a la FPU
+		add esp, 4
+		pop ebp
+		ret
+
+
+Moyenne ENDP
 
 END

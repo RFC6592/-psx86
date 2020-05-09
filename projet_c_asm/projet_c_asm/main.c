@@ -30,6 +30,7 @@ extern int LoiOhm(int r, int i);
 extern double PerimetreRectangle(double, double);
 extern int TesterTriangleRect(int, int, int);
 extern void ConversionFranc2Euro(double *pV);
+extern float Moyenne(float *pV, int taille);
 
 void main()
 {
@@ -96,6 +97,7 @@ void main()
 	int coteC = 10;
 	printf("\x1b[32m[+]\x1b[0m int TesterTriangleRect(int a, int b, int c) : Triangle Rectangle ? (1 pour Oui/0 pour Non) = \x1B[7m\x1b[33m%d\x1b[0m\n", TesterTriangleRect(coteA, coteB, coteC));
 
+
 	// 12. void ConversionFranc2Euro(double *pV);
 	double moneyEuro[20];
 	ConversionFranc2Euro(&moneyEuro[0]);
@@ -106,6 +108,12 @@ void main()
 	{
 		printf("%d \t\t %.3lf \n", i*5, moneyEuro[i-1]);
 	}
+
+
+	// 13. float Moyenne(float *pV, int taille);
+	int taillevf = 7;
+	float tabMoyenne[7] = {13.0, 15.0, 18.0, 19.0, 16.0, 14.0, 17.0};
+	printf("\x1b[32m[+]\x1b[0m Moyenne(&tabMoyenne[0], taille) : Moyenne = \x1B[7m\x1b[33m%.2f\x1b[0m\n", Moyenne(tabMoyenne, taillevf));
 }
 
 
