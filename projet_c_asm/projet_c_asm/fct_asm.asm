@@ -246,6 +246,8 @@ Absolue PROC
 
 	mov eax, i
 
+	; ======================= TRAITEMENT =======================
+
 	cdq ; (Convert DoubleWord to QuadWord) Etendre le bit de signe d'EAX dans le registre EDX : SI c'est un nombre positif alors EDX = 0x00000000 SINON EDX = 0xFFFFFFFF, SF = 1
 	xor eax, edx ; SI c'est un nombre positif ça change rien 
 	sub eax, edx ; SI EDX = 0xFFFFFFFF(0d = -1) ALORS eax - 1
@@ -267,8 +269,8 @@ Absolue ENDP
 ; @Return retourne l'adresse de la variable
 
 ChangeSigne PROC
-	pd EQU <DWORD PTR [EBP + 8]> ; l'adresse de la variable donnee en argument de la fonction
-	tmp EQU <QWORD PTR [EBP - 8]> ; une variable locale tmp
+	pd	EQU <DWORD PTR [EBP + 8]> ; l'adresse de la variable donnee en argument de la fonction
+	tmp	EQU <QWORD PTR [EBP - 8]> ; une variable locale tmp
 
 	push ebp ; Creation d'un nouveau sommet ou nous allons placer la valeur de EBP au sommet de la pile (8 octets)
 	mov ebp, esp
@@ -304,8 +306,8 @@ ChangeSigne ENDP
 ; @Return retourne la tension (U)
 
 LoiOhm PROC
-	intensite EQU <DWORD PTR [EBP + 8]>
-	resistance EQU <DWORD PTR [EBP + 12]>
+	intensite	EQU <DWORD PTR [EBP + 8]>
+	resistance	EQU <DWORD PTR [EBP + 12]>
 
 	push ebp
 	mov ebp, esp
@@ -331,9 +333,9 @@ LoiOhm ENDP
 ; @Return retourne le perimetre du rectangle (Formule : P = (L + l) × 2)
 
 PerimetreRectangle PROC
-	largeur EQU <QWORD PTR [EBP + 16]>
-	longueur EQU <QWORD PTR [EBP + 8]>
-	resultat EQU <QWORD PTR [EBP - 8]> ; Identificateur local attribue a la variable locale creee dans cette fonction
+	largeur		EQU <QWORD PTR [EBP + 16]>
+	longueur	EQU <QWORD PTR [EBP + 8]>
+	resultat	EQU <QWORD PTR [EBP - 8]> ; Identificateur local attribue a la variable locale creee dans cette fonction
 
 	push ebp
 	mov ebp, esp
@@ -459,9 +461,9 @@ ConversionFranc2Euro ENDP
 ; @Return retourne la moyenne arithmetique
 
 Moyenne PROC
-	vecteur EQU <DWORD PTR [EBP + 8]>
-	tailleV EQU <DWORD PTR [EBP + 12]>
-	ftmp EQU <DWORD PTR [EBP - 8]>
+	vecteur		EQU <DWORD PTR [EBP + 8]>
+	tailleV		EQU <DWORD PTR [EBP + 12]>
+	ftmp		EQU <DWORD PTR [EBP - 8]>
 
 	push ebp
 	mov ebp, esp
@@ -493,5 +495,45 @@ Moyenne PROC
 
 
 Moyenne ENDP
+
+
+
+
+; @brief Fonction qui se charge de copier dans un vecteur de type short le contenu d'un vecteur de type double
+; @prototype Prototype en C : void CopierVecteur(short *pVCible, double *pVSource, int taille);
+; @param pVCible = vecteur de type short (tableau source)
+; @param pVSource = vecteur de type double (tableau destination)
+; @param taille = taille tableau
+
+CopierVecteur PROC
+	vecteurDestination  EQU <DWORD PTR [EBP + 8]> ; Vecteur de type short 
+	vecteurSource		EQU <DWORD PTR [EBP + 12]> ; Vecteur de type double
+	taille				EQU <DWORD PTR [EBP + 16]>
+
+	push ebp
+	mov ebp, esp
+
+	;  ======================= DECLARATION DES VARIABLES =======================
+	mov edi, vecteurDestination ; Vecteur de type short 
+	mov esi, vecteurSource ; Vecteur de type double
+	xor ecx, ecx ; compteur => ecx = 0
+
+	;  ======================= TRAITEMENT =======================
+	debutwhile:
+		cmp ecx, taille
+		jl blocwhile
+		jnl finwhile 
+	blocwhile:
+		movsd xmm0, QWORD PTR [esi + ecx * 8]
+		cvtsd2si eax, xmm0 ; Conversion double vers short (16bits)
+		mov WORD PTR [edi + ecx * 2], ax
+
+		add ecx, 1 ; compteur++
+		jmp debutwhile
+	finwhile:
+		pop ebp
+		ret
+
+CopierVecteur ENDP
 
 END

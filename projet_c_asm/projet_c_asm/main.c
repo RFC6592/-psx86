@@ -31,6 +31,7 @@ extern double PerimetreRectangle(double, double);
 extern int TesterTriangleRect(int, int, int);
 extern void ConversionFranc2Euro(double *pV);
 extern float Moyenne(float *pV, int taille);
+extern void CopierVecteur(short *pVCible, double *pVSource, int taille);
 
 void main()
 {
@@ -62,58 +63,69 @@ void main()
 	int position = RechercheVectShort(vecteur, 200, TAILLE);
 	printf("\x1b[32m[+]\x1b[0m RechercheVectShort(vecteur, 200, TAILLE) : Position du chiffre = \x1b[33m%d \x1b[0m\n", position);
 
-	// =======================================================================================================================================
-	// =======================================================================================================================================
-	// =======================================================================================================================================
+	// =========================================================================================================================================================
+	// =========================================================================================================================================================
+	// =========================================================================================================================================================
 
-	printf("\n\x1b[31m--> <Evaluation | Debut ligne 227> <--\x1b[0m\n\n");
+	printf("\x1b[4m\x1b[1m\n\x1b[31m--> <Evaluation | Debut ligne 235> <--\x1b[0m\n\n");
 
 
 	// 8. int Absolue(int i)
 	int i1 = -5, i2 = 500, i3 = -78;
-	printf("\x1b[32m[+]\x1b[0m Absolue(-5) = \x1B[7m\x1b[33m%d\x1b[0m ;; Absolue(500) = \x1B[7m\x1b[33m%d\x1b[0m ;; Absolue(-78) = \x1B[7m\x1b[33m%d \x1b[0m\n", Absolue(i1), Absolue(i2), Absolue(i3));
+	printf("\x1b[1m\x1b[32m[Exo 1]\x1b[0m Absolue(-5) = \x1B[4m\x1b[36m%d\x1b[0m ;; Absolue(500) = \x1B[4m\x1b[36m%d\x1b[0m ;; Absolue(-78) = \x1B[4m\x1b[36m%d \x1b[0m\n", Absolue(i1), Absolue(i2), Absolue(i3));
 
 
 	// 9. double *ChangeSigne(double *pd)
 	double val = -20.0;
-	printf("\x1b[32m[+]\x1b[0m *ChangeSigne(&val) : Adresse = \x1B[7m\x1b[33m%p\x1b[0m <=> Valeur = \x1B[7m\x1b[33m%.2lf \x1b[0m\n", ChangeSigne(&val), *ChangeSigne(&val));
+	printf("\x1b[1m\x1b[32m[Exo 2]\x1b[0m *ChangeSigne(&val) : Adresse = \x1B[4m\x1b[36m%p\x1b[0m <=> Valeur = \x1B[4m\x1b[36m%.2lf \x1b[0m\n", ChangeSigne(&val), *ChangeSigne(&val));
 
 
 	// 10. int LoiOhm(int r, int i)
 	int r = 25;
 	int i = 9; // en Ampere
-	printf("\x1b[32m[+]\x1b[0m LoiOhm(int r, int i) : Tension (U) = \x1B[7m\x1b[33m%d\x1b[0m\n", LoiOhm(r, i));
+	printf("\x1b[1m\x1b[32m[Exo 3]\x1b[0m LoiOhm(int r, int i) : Tension (U) = \x1B[4m\x1b[36m%d\x1b[0m\n", LoiOhm(r, i));
 
 
 	// 11. double PerimetreRectangle(double longueur, double largeur)
 	double longueur = 7.0;
 	double largeur = 3.0; 
-	printf("\x1b[32m[+]\x1b[0m PerimetreRectangle(double longueur, double largeur) : Perimetre (P) = \x1B[7m\x1b[33m%.2lf\x1b[0m\n", PerimetreRectangle(longueur, largeur));
+	printf("\x1b[1m\x1b[32m[Exo 4]\x1b[0m PerimetreRectangle(double longueur, double largeur) : Perimetre (P) = \x1B[4m\x1b[36m%.2lf\x1b[0m\n", PerimetreRectangle(longueur, largeur));
 
 
 	// 12. int TesterTriangleRect(int a, int b, int c);
 	int coteA = 8;
 	int coteB = 6;
 	int coteC = 10;
-	printf("\x1b[32m[+]\x1b[0m int TesterTriangleRect(int a, int b, int c) : Triangle Rectangle ? (1 pour Oui/0 pour Non) = \x1B[7m\x1b[33m%d\x1b[0m\n", TesterTriangleRect(coteA, coteB, coteC));
+	printf("\x1b[1m\x1b[32m[Exo 5]\x1b[0m int TesterTriangleRect(int a, int b, int c) : Triangle Rectangle ? (\x1b[1m1\x1b[0m pour Oui/\x1b[1m0\x1b[0m pour Non) = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterTriangleRect(coteA, coteB, coteC));
 
 
 	// 12. void ConversionFranc2Euro(double *pV);
 	double moneyEuro[20];
 	ConversionFranc2Euro(&moneyEuro[0]);
 
-	printf("\n\x1b[32m[+]\x1b[0m\x1b[7m\x1b[33m TABLE DE CONVERSION \x1b[33m\x1b[0m\n");
-	printf("\x1b[31m\x1B[7mFRANCS\t\t EUROS\x1b[0m\n");
+	printf("\x1b[1m\n\x1b[32m[Exo 6]\x1b[0m\x1b[7m\x1b[33mTABLE DE CONVERSION \x1b[33m\x1b[0m\n");
+	printf("\x1b[31m\x1B[7m\tFRANCS\t\t EUROS\x1b[0m\n");
 	for (int i = 1; i <= 20; ++i)
 	{
-		printf("%d \t\t %.3lf \n", i*5, moneyEuro[i-1]);
+		printf("\t%d \t\t \x1b[4m\x1b[36m%.3lf\x1B[0m \n", i*5, moneyEuro[i-1]);
 	}
 
 
 	// 13. float Moyenne(float *pV, int taille);
 	int taillevf = 7;
 	float tabMoyenne[7] = {13.0, 15.0, 18.0, 19.0, 16.0, 14.0, 17.0};
-	printf("\x1b[32m[+]\x1b[0m Moyenne(&tabMoyenne[0], taille) : Moyenne = \x1B[7m\x1b[33m%.2f\x1b[0m\n", Moyenne(tabMoyenne, taillevf));
+	printf("\n\x1b[1m\x1b[32m[Exo 7]\x1b[0m Moyenne(&tabMoyenne[0], taille) : Moyenne = \x1B[4m\x1b[36m%.2f\x1b[0m\n", Moyenne(&tabMoyenne[0], taillevf));
+
+
+	// 14. void CopierVecteur(short *pVCible, double *pVSource, int taille);
+	double pVSource[8] = { 13.0, 15.0, 18.0, 19.0, 16.0, 14.0, 17.0, 20.0 };
+	short pVCible[8] = { 0 };
+	printf("\x1b[1m\x1b[32m[Exo 8]\x1b[0m CopierVecteur(&pVCible[0], &pVSource[0], 8)\n\n");
+	CopierVecteur(&pVCible[0], &pVSource[0], 8);
+	for (unsigned int i = 0; i < 8; ++i)
+	{
+		printf("\tpVCible[%d] \t\t \x1b[4m\x1b[36m%d\x1b[0m \n", i, pVCible[i]);
+	}
 }
 
 
@@ -122,7 +134,7 @@ void main()
 
 void affichage()
 {
-	printf("\x1b[33m\t\t[Microprocesseurs notions avancees] Par EZZAYRI Sami \x1b[31m|\x1b[33m Groupe 2129 \x1b[0m\n\n");
+	printf("\x1b[4m\x1b[33m\t\t[Microprocesseurs notions avancees] Par EZZAYRI Sami \x1b[31m|\x1b[33m Groupe 2129 \x1b[0m\n\n");
 }
 
 void clear()
