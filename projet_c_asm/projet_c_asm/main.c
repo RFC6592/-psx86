@@ -32,6 +32,7 @@ extern int TesterTriangleRect(int, int, int);
 extern void ConversionFranc2Euro(double *pV);
 extern float Moyenne(float *pV, int taille);
 extern void CopierVecteur(short *pVCible, double *pVSource, int taille);
+extern int TesterNonPresence(char *pChaine, char lettre);
 
 void main()
 {
@@ -88,7 +89,7 @@ void main()
 
 	// 11. double PerimetreRectangle(double longueur, double largeur)
 	double longueur = 7.0;
-	double largeur = 3.0; 
+	double largeur = 3.0;
 	printf("\x1b[1m\x1b[32m[Exo 4]\x1b[0m PerimetreRectangle(double longueur, double largeur) : Perimetre (P) = \x1B[4m\x1b[36m%.2lf\x1b[0m\n", PerimetreRectangle(longueur, largeur));
 
 
@@ -107,13 +108,13 @@ void main()
 	printf("\x1b[31m\x1B[7m\tFRANCS\t\t EUROS\x1b[0m\n");
 	for (int i = 1; i <= 20; ++i)
 	{
-		printf("\t%d \t\t \x1b[4m\x1b[36m%.3lf\x1B[0m \n", i*5, moneyEuro[i-1]);
+		printf("\t%d \t\t \x1b[4m\x1b[36m%.3lf\x1B[0m \n", i * 5, moneyEuro[i - 1]);
 	}
 
 
 	// 13. float Moyenne(float *pV, int taille);
 	int taillevf = 7;
-	float tabMoyenne[7] = {13.0, 15.0, 18.0, 19.0, 16.0, 14.0, 17.0};
+	float tabMoyenne[7] = { 13.0, 15.0, 18.0, 19.0, 16.0, 14.0, 17.0 };
 	printf("\n\x1b[1m\x1b[32m[Exo 7]\x1b[0m Moyenne(&tabMoyenne[0], taille) : Moyenne = \x1B[4m\x1b[36m%.2f\x1b[0m\n", Moyenne(&tabMoyenne[0], taillevf));
 
 
@@ -126,6 +127,13 @@ void main()
 	{
 		printf("\tpVCible[%d] \t\t \x1b[4m\x1b[36m%d\x1b[0m \n", i, pVCible[i]);
 	}
+
+
+	// 15. int TesterNonPresence(char *pChaine, char lettre);
+	char chaine[6] = "Zorro";
+	char lettre = 'u';
+	printf("\n\x1b[1m\x1b[32m[Exo 9]\x1b[0m int TesterNonPresence(&chaine, lettre) : (0 = Present && 1 = Pas present) = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterNonPresence(&chaine[0], lettre));
+
 }
 
 

@@ -6,6 +6,7 @@
 	dtmpMax DQ 5.0
 	dtmpMin DQ 100.0
 
+	nullByte DB 0
 	
 	compteur DD 0
 	euro DQ 0.125
@@ -535,5 +536,50 @@ CopierVecteur PROC
 		ret
 
 CopierVecteur ENDP
+
+
+
+
+; @brief Fonction qui se charge de retourner 1 si une lettre donnée n'est pas présente dans une chaine et qui retourne 0 dans le cas contraire
+; @prototype Prototype en C : int TesterNonPresence(char *pChaine, char lettre);
+; @param pChaine = vecteur de type short (tableau source)
+; @param lettre = vecteur de type double (tableau destination)
+; @return retourner 1 si une lettre donnée n'est pas présente dans une chaine et qui retourne 0 dans le cas contraire
+
+TesterNonPresence PROC
+	vecteur EQU <DWORD PTR [EBP + 8]>
+	lettre EQU <BYTE PTR [EBP + 12]>
+
+	push ebp
+	mov ebp, esp
+
+	mov esi, vecteur
+	mov bl, lettre
+	xor ecx, ecx ; compteur = 0
+
+	;  ======================= TRAITEMENT =======================
+	debutwhile:
+		mov dl, BYTE PTR [esi + ecx * 1] ; dl (8bits) contient une lettre
+		cmp dl, nullByte
+		jne blocwhile
+		jmp finwhile 
+	blocwhile:
+		add ecx, 1 ; compteur++
+		cmp dl, bl ; On compare les deux lettres
+		je trouve
+		jne debutwhile
+
+	trouve:
+		mov eax, 0
+		pop ebp
+		ret
+
+	finwhile:
+		mov eax, 1
+		pop ebp
+		ret
+
+TesterNonPresence ENDP
+
 
 END
