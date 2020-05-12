@@ -7,7 +7,8 @@
 	dtmpMin DQ 100.0
 
 	nullByte DB 0
-	
+	emptySpace DB 20h
+
 	compteur DD 0
 	euro DQ 0.125
 	dtmpFive DQ 5.0
@@ -540,11 +541,11 @@ CopierVecteur ENDP
 
 
 
-; @brief Fonction qui se charge de retourner 1 si une lettre donnée n'est pas présente dans une chaine et qui retourne 0 dans le cas contraire
+; @brief Fonction qui se charge de retourner 1 si une lettre donnee n'est pas présente dans une chaine et qui retourne 0 dans le cas contraire
 ; @prototype Prototype en C : int TesterNonPresence(char *pChaine, char lettre);
 ; @param pChaine = vecteur de type short (tableau source)
 ; @param lettre = vecteur de type double (tableau destination)
-; @return retourner 1 si une lettre donnée n'est pas présente dans une chaine et qui retourne 0 dans le cas contraire
+; @return retourner 1 si une lettre donnee n'est pas presente dans une chaine et qui retourne 0 dans le cas contraire
 
 TesterNonPresence PROC
 	vecteur EQU <DWORD PTR [EBP + 8]>
@@ -580,6 +581,68 @@ TesterNonPresence PROC
 		ret
 
 TesterNonPresence ENDP
+
+
+
+
+; @brief Fonction qui se charge de mettre en minuscules une lettre sur 2 dans une chaine
+; @prototype Prototype en C : char *Minuscules(char *pChaine);
+; @param pChaine = la chaine (Exemple : "LE GRAND ZORRO")
+; @return retourne l'adresse de la chaine
+
+Minuscules PROC
+	chaine EQU <DWORD PTR [EBP + 8]>
+	tmp EQU <DWORD PTR [EBP - 8]>
+
+	push ebp
+	mov ebp, esp
+	sub esp, 4
+
+	mov esi, chaine
+	xor eax, eax ; compteur = 0
+	mov ecx, 2 ; Diviseur
+
+	;  ======================= TRAITEMENT =======================
+	debutwhile:
+		mov bl, BYTE PTR [esi + eax * 1] ; bl (8bits) contient une lettre de la chaine
+		cmp bl, nullByte ; while (bl != '\0') 
+		jne blocwhile
+		jmp finwhile 
+
+	blocwhile:
+		cmp bl, 20h ; if (bl == ' ')
+		je blocIf
+		jne blocElse
+
+	blocif:
+		add eax, 1 ; compteur++;
+		jmp debutwhile 
+
+	blocElse:
+		cdq ; Etendre
+
+		mov tmp, eax ; On save la position de notre "curseur" dans une variable tmp
+		idiv ecx ; eax % 2
+		mov eax, tmp 
+
+		add eax, 1 ; compteur++
+		cmp edx, 0 ; if ( (eax % 2) == 0)
+
+		je miseEnMinuscule
+		jne debutwhile
+		
+	miseEnMinuscule:
+		add bl, 32 ; mise en minuscule (+32)
+		mov BYTE PTR [esi + eax - 1 * 1], bl ; On modifie la lettre qui dans notre chaine. Exemple : 'A' => 'a'
+		jmp debutwhile
+
+	finwhile:
+		mov eax, chaine
+		add esp, 4
+		pop ebp
+		ret
+
+Minuscules ENDP
 
 
 END

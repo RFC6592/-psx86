@@ -24,6 +24,7 @@ extern void EchangeShort(short *, short *);
 extern char *InitChaine(char *, char, int);
 extern int RechercheVectShort(short *, short, int);
 
+
 extern int Absolue(int);
 extern double *ChangeSigne(double *);
 extern int LoiOhm(int r, int i);
@@ -33,6 +34,7 @@ extern void ConversionFranc2Euro(double *pV);
 extern float Moyenne(float *pV, int taille);
 extern void CopierVecteur(short *pVCible, double *pVSource, int taille);
 extern int TesterNonPresence(char *pChaine, char lettre);
+extern char *Minuscules(char *pChaine);
 
 void main()
 {
@@ -40,6 +42,7 @@ void main()
 	affichage();
 
 	printf("\x1b[31m--> <Les fonctions pour aider a faire les exercices> <--\x1b[0m\n\n");
+
 	// 0. RetZeroInt() && RetZeroDouble()
 	printf("\x1b[32m[+]\x1b[0m RetZeroInt() =\x1b[33m %d\x1b[0m\n\x1b[32m[+]\x1b[0m RetZeroDouble() = \x1b[33m%.2lf\x1b[0m\n", RetZeroInt(), RetZeroDouble());
 	// 1. SommeInt(int, int)
@@ -100,7 +103,7 @@ void main()
 	printf("\x1b[1m\x1b[32m[Exo 5]\x1b[0m int TesterTriangleRect(int a, int b, int c) : Triangle Rectangle ? (\x1b[1m1\x1b[0m pour Oui/\x1b[1m0\x1b[0m pour Non) = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterTriangleRect(coteA, coteB, coteC));
 
 
-	// 12. void ConversionFranc2Euro(double *pV);
+	// 13. void ConversionFranc2Euro(double *pV);
 	double moneyEuro[20];
 	ConversionFranc2Euro(&moneyEuro[0]);
 
@@ -112,13 +115,13 @@ void main()
 	}
 
 
-	// 13. float Moyenne(float *pV, int taille);
+	// 14. float Moyenne(float *pV, int taille);
 	int taillevf = 7;
 	float tabMoyenne[7] = { 13.0, 15.0, 18.0, 19.0, 16.0, 14.0, 17.0 };
 	printf("\n\x1b[1m\x1b[32m[Exo 7]\x1b[0m Moyenne(&tabMoyenne[0], taille) : Moyenne = \x1B[4m\x1b[36m%.2f\x1b[0m\n", Moyenne(&tabMoyenne[0], taillevf));
 
 
-	// 14. void CopierVecteur(short *pVCible, double *pVSource, int taille);
+	// 15. void CopierVecteur(short *pVCible, double *pVSource, int taille);
 	double pVSource[8] = { 13.0, 15.0, 18.0, 19.0, 16.0, 14.0, 17.0, 20.0 };
 	short pVCible[8] = { 0 };
 	printf("\x1b[1m\x1b[32m[Exo 8]\x1b[0m CopierVecteur(&pVCible[0], &pVSource[0], 8)\n\n");
@@ -129,11 +132,15 @@ void main()
 	}
 
 
-	// 15. int TesterNonPresence(char *pChaine, char lettre);
+	// 16. int TesterNonPresence(char *pChaine, char lettre);
 	char chaine[6] = "Zorro";
 	char lettre = 'u';
 	printf("\n\x1b[1m\x1b[32m[Exo 9]\x1b[0m int TesterNonPresence(&chaine, lettre) : (0 = Present && 1 = Pas present) = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterNonPresence(&chaine[0], lettre));
 
+
+	// 17. char *Minuscules(char *pChaine);
+	char chaineMaj[15] = "LE GRAND ZORRO";
+	printf("%s\n", Minuscules(&chaineMaj[0]));
 }
 
 
