@@ -71,7 +71,7 @@ void main()
 	// =========================================================================================================================================================
 	// =========================================================================================================================================================
 
-	printf("\x1b[4m\x1b[1m\n\x1b[31m--> <Evaluation | Debut ligne 235> <--\x1b[0m\n\n");
+	printf("\x1b[4m\x1b[1m\n\x1b[31m--> <Evaluation | Debut ligne 238> <--\x1b[0m\n\n");
 
 
 	// 8. int Absolue(int i)
@@ -140,7 +140,7 @@ void main()
 
 	// 17. char *Minuscules(char *pChaine);
 	char chaineMaj[15] = "LE GRAND ZORRO";
-	printf("%s\n", Minuscules(&chaineMaj[0]));
+	printf("\x1b[1m\x1b[32m[Exo 10]\x1b[0m char *Minuscules(&chaineMaj[0]) : \x1b[36m%s\x1b[0m\n", Minuscules(&chaineMaj[0]));
 }
 
 
