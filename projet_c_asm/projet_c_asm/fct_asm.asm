@@ -598,9 +598,10 @@ Minuscules PROC
 	mov ebp, esp
 	sub esp, 4
 
+	;  ======================= DECLARATION DES VARIABLES =======================
 	mov esi, chaine
-	xor eax, eax ; compteur = 0
-	mov ecx, 2 ; Diviseur
+	xor eax, eax ; notre compteur = 0
+	mov ecx, 2 ; notre diviseur
 
 	;  ======================= TRAITEMENT =======================
 	debutwhile:
@@ -621,8 +622,8 @@ Minuscules PROC
 	blocElse:
 		cdq ; Etendre
 
-		mov tmp, eax ; On save la position de notre "curseur" dans une variable tmp
-		idiv ecx ; eax % 2
+		mov tmp, eax ; On sauvegarde la position de notre "curseur" (l'endroit ou on se trouve dans la chaine pour l'instant) dans une variable tmp
+		idiv ecx ; Info : edx = eax % 2 && eax = eax / 2
 		mov eax, tmp 
 
 		add eax, 1 ; compteur++
