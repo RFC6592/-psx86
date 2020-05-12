@@ -35,6 +35,7 @@ extern float Moyenne(float *pV, int taille);
 extern void CopierVecteur(short *pVCible, double *pVSource, int taille);
 extern int TesterNonPresence(char *pChaine, char lettre);
 extern char *Minuscules(char *pChaine);
+extern int TesterPalindrome(char *pChaine);
 
 void main()
 {
@@ -134,23 +135,38 @@ void main()
 
 	// 16. int TesterNonPresence(char *pChaine, char lettre);
 	char chaine[6] = "Zorro";
+	char chaineAutre[6] = "Bravo";
 	char lettre = 'u';
-	printf("\n\x1b[1m\x1b[32m[Exo 9]\x1b[0m int TesterNonPresence(&chaine, lettre) : (0 = Present && 1 = Pas present) = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterNonPresence(&chaine[0], lettre));
+	char lettreAutre = 'o';
+	printf("\n\x1b[1m\x1b[32m[Exo 9]\x1b[0m int TesterNonPresence(&chaine, lettre) : la chaine \x1b[33m'Zorro'\x1b[0m et lettre \x1b[33m'u'\x1b[0m : (0 = Present && 1 = Pas present) = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterNonPresence(&chaine[0], lettre));
+	printf("\tint TesterNonPresence(&chaine, lettre) : la chaine \x1b[33m'Bravo'\x1b[0m et lettre \x1b[33m'o'\x1b[0m: (0 = Present && 1 = Pas present) = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterNonPresence(&chaineAutre[0], lettreAutre));
+
 
 
 	// 17. char *Minuscules(char *pChaine);
 	char chaineMaj[15] = "LE GRAND ZORRO";
-	printf("\x1b[1m\x1b[32m[Exo 10]\x1b[0m char *Minuscules(&chaineMaj[0]) : \x1b[36m%s\x1b[0m\n", Minuscules(&chaineMaj[0]));
+	char autreChaineMaj[22] = "FELICITATION MONSIEUR";
+	printf("\n\x1b[1m\x1b[32m[Exo 10]\x1b[0m char *Minuscules(&chaineMaj[0]) : \x1b[36m%s\x1b[0m\n", Minuscules(&chaineMaj[0]));
+	printf("\t char *Minuscules(&chaineMaj[0]) : \x1b[36m%s\x1b[0m\n", Minuscules(&autreChaineMaj[0]));
+
+
+	// 18. int TesterPalindrome(char *pChaine);
+	char chainePalindrome[6] = "radar";
+	char chainePalindromeAutre[6] = "kayak";
+	char chainePasPalindrome[6] = "bravo";
+	char chainePasPalindromeAutre[28] = "intergouvernementalisations";
+
+	printf("\n\x1b[1m\x1b[32m[Exo 11]\x1b[0m TesterPalindrome(&chainePalindrome[0]) : La chaine \x1b[33m'radar'\x1b[0m : (1 = Palindrome && 0 = Pas palindrome) = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterPalindrome(&chainePalindrome[0]));
+	printf("\t TesterPalindrome(&chainePalindromeAutre[0]) : la chaine \x1b[33m'kayak'\x1b[0m : (1 = Palindrome && 0 = Pas palindrome) = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterPalindrome(&chainePalindromeAutre[0]));
+	printf("\t TesterPalindrome(&chainePasPalindrome[0]) : la chaine \x1b[33m'bravo'\x1b[0m : (1 = Palindrome && 0 = Pas palindrome) = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterPalindrome(&chainePasPalindrome[0]));
+	printf("\t TesterPalindrome(&chainePasPalindromeAutre[0]) : la chaine \x1b[33m'intergouvernementalisations'\x1b[0m = \x1B[4m\x1b[36m%d\x1b[0m\n", TesterPalindrome(&chainePasPalindromeAutre[0]));
 }
 
 
 
 
 
-void affichage()
-{
-	printf("\x1b[4m\x1b[33m\t\t[Microprocesseurs notions avancees] Par EZZAYRI Sami \x1b[31m|\x1b[33m Groupe 2129 \x1b[0m\n\n");
-}
+
 
 void clear()
 {
@@ -164,3 +180,10 @@ void clear()
 	#endif 
 }
 
+
+
+
+void affichage()
+{
+	printf("\x1b[4m\x1b[33m\t\t[Microprocesseurs notions avancees] Par EZZAYRI Sami \x1b[31m|\x1b[33m Groupe 2129 \x1b[0m\n\n");
+}

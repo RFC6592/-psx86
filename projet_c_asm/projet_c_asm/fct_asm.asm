@@ -591,8 +591,8 @@ TesterNonPresence ENDP
 ; @return retourne l'adresse de la chaine
 
 Minuscules PROC
-	chaine EQU <DWORD PTR [EBP + 8]>
-	tmp EQU <DWORD PTR [EBP - 8]>
+	chaine	 EQU <DWORD PTR [EBP + 8]>
+	tmp		 EQU <DWORD PTR [EBP - 8]>
 
 	push ebp
 	mov ebp, esp
@@ -609,9 +609,9 @@ Minuscules PROC
 		cmp bl, nullByte ; while (bl != '\0') 
 		jne blocwhile
 		jmp finwhile 
-
+		;lE gRaNd ZoRrO"
 	blocwhile:
-		cmp bl, 20h ; if (bl == ' ')
+		cmp bl, 20h ; if (bl == ' ') 
 		je blocIf
 		jne blocElse
 
@@ -629,8 +629,8 @@ Minuscules PROC
 		add eax, 1 ; compteur++
 		cmp edx, 0 ; if ( (eax % 2) == 0)
 
-		je miseEnMinuscule
 		jne debutwhile
+		je miseEnMinuscule
 		
 	miseEnMinuscule:
 		add bl, 32 ; mise en minuscule (+32)
@@ -644,6 +644,73 @@ Minuscules PROC
 		ret
 
 Minuscules ENDP
+
+
+
+
+; @brief Fonction qui se charge de savoir si une chaine est un palindrome
+; @prototype Prototype en C : int TesterPalindrome(char *pChaine);
+; @param pChaine = la chaine (Exemple : "radar")
+; @return retourne 1 si c'est un palindrome et 0 dans le cas contraire
+
+TesterPalindrome PROC
+	chaine EQU <DWORD PTR [EBP + 8]>
+	taille EQU <DWORD PTR [EBP + 12]>
+
+	push ebp
+	mov ebp, esp
+
+	;  ======================= DECLARATION DES VARIABLES =======================
+	mov esi, chaine
+	xor ecx, ecx ; ecx = 0
+	sub esp, 4
+
+	;  ======================= TRAITEMENT 1 : Recuperation de la longueur de la chaine =======================
+	strlen:
+		mov bl, BYTE PTR [esi + ecx * 1]
+		cmp bl, nullByte ; while (bl != '\0')
+		jne blocstrlen
+		je finblocstrlen
+	blocstrlen:
+		add ecx, 1
+		jmp strlen
+
+	finblocstrlen:
+		mov taille, ecx
+		xor ecx, ecx ; ecx = 0
+
+
+	;  ======================= TRAITEMENT 1 : Verification pour savoir si la chaine est un palindrome =======================
+
+	mov edi, taille ; EDI contient la longueur de la chaine 
+
+	debutwhile:
+		mov bl, BYTE PTR [esi + ecx * 1] ; bl (8bits) va contenir au debut la premiere lettre de la chaine
+		mov dl, BYTE PTR [esi + edi - 1 * 1] ; dl (8bits) va contenir au debut la derniere lettre de la chaine
+		cmp bl, nullByte ; while (bl != '\0' )
+
+		jne blocwhile
+		je finwhile
+
+
+	blocwhile:
+		cmp bl, dl ; if ( bl == dl ) 
+		je incrementationDecrementation
+
+		mov eax, 0 ; else { return 0; }
+		jmp finwhile
+
+	incrementationDecrementation:
+		sub edi, 1 ; edi--
+		add ecx, 1 ; ecx++
+		jmp debutwhile
+
+	finwhile:
+		add esp, 4
+		pop ebp
+		ret
+
+TesterPalindrome ENDP
 
 
 END
