@@ -1,7 +1,7 @@
 /**
-* @author EZZAYRI Sami | Groupe 2129
+* @author Sami | Groupe 2129
 * @date 27-04-20
-* Microprocesseurs notions avancées
+* Microprocesseurs notions avancÃ©es
 */
 
 #include <stdio.h>
